@@ -13,7 +13,7 @@ var smallestDivisor = function(nums, threshold) {
     
     while(l<r){
         sum =0;
-        mid = Math.floor((l+r)/2);
+        mid = Math.floor((l+r)/2); //This can be changed to nums[nums.length-1], because all values greater than this will return the same result.
         
         for(let num of nums){
             sum += Math.ceil(num/mid);
