@@ -1,0 +1,37 @@
+/*
+A conveyor belt has packages that must be shipped from one port to another within D days.
+
+The i-th package on the conveyor belt has a weight of weights[i].  Each day, we load the ship with packages on the conveyor belt (in the order given by weights). We may not load more weight than the maximum weight capacity of the ship.
+
+Return the least weight capacity of the ship that will result in all the packages on the conveyor belt being shipped within D days.
+*/
+
+var shipWithinDays = function(weights, D) {
+    let min = Math.max(...weights);
+    let max = weights.reduce((sum,crr)=>sum+crr);
+    let currentCap = 0;
+    let day = 0;
+    let mid = 0;
+    let result = [];
+    
+    while (min<=max){
+        mid = Math.floor((min+max)/2);
+        currentCap = 0;
+        day = 1;
+        
+        for(let weight of weights){
+            if((currentCap+weight)>mid){
+                day++;
+                currentCap=0;
+            }
+            currentCap += weight;
+        }
+        
+        if(day<=D){
+            max=mid-1;
+        }else{
+            min=mid+1
+        }
+    }
+    return min
+};
