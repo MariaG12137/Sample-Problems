@@ -1,0 +1,43 @@
+/*
+Given the head of a linked list, we repeatedly delete consecutive sequences of nodes that sum to 0 until there are no such sequences.
+
+After doing so, return the head of the final linked list.  You may return any such answer.
+
+ 
+*/
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+//use cumulative sum
+var removeZeroSumSublists = function(head) {
+    let dummy = new ListNode(0);
+    dummy.next = head;
+    let sum = 0;
+    const cumuSum = new Map();
+
+    cumuSum.set(0,dummy);
+    
+    for(let i=dummy; i !== null; i=i.next){
+        sum += i.val;
+        cumuSum.set(sum,i)
+    }
+    sum = 0;
+    
+    for(let i=dummy; i !== null; i=i.next){
+        sum += i.val;
+        if(cumuSum.has(sum)){
+            i.next = cumuSum.get(sum).next;
+        }
+    }
+
+    return dummy.next;
+
+};
