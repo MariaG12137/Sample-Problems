@@ -1,0 +1,26 @@
+/*
+You are given an array of k linked-lists lists, each linked-list is sorted in ascending order.
+
+Merge all the linked-lists into one sorted linked-list and return it.
+You are given an array of k linked-lists lists, each linked-list is sorted in ascending order.
+
+Merge all the linked-lists into one sorted linked-list and return it.
+*/
+//brute force
+var mergeKLists = function(lists) {
+    let array = [];
+    let result = new ListNode();
+    let current = result;
+    
+    for(let list of lists){
+        for(let i=list; i !== null; i=i.next){
+            array.push(i.val);
+        }
+    }
+    let arraySort = array.sort((a,b)=>a-b);
+    for(let node of arraySort){
+        current.next = new ListNode(node);
+        current = current.next
+    }
+    return result.next
+};
